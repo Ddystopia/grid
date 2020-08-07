@@ -12,17 +12,17 @@ export const getIsLarge = state => state.table.isLarge
 export const getFilter = state => state.table.filterString
 export const getHasError = state => state.table.hasError
 export const getSelectedId = state => state.table.selectedId
-export const getTableHeaders = state => state.table.headers
+export const getTableSelectDatas = state => state.table.headers
 
 export const getSelectedUser = createSelector([getAllUsers, getSelectedId], (users, selectedId) => {
   return users.find(u => u.id === selectedId)
 })
 export const getFilteredUsersCount = createSelector(
-  [getAllUsers, getFilter, getTableHeaders],
+  [getAllUsers, getFilter, getTableSelectDatas],
   (users, filter, headers) => filterUsers(users, filter, headers).length
 )
 export const getUsersSelector = createSelector(
-  [getAllUsers, getPage, getPageSize, getFilter, getTableHeaders, getSortBy, getSortIsDesc],
+  [getAllUsers, getPage, getPageSize, getFilter, getTableSelectDatas, getSortBy, getSortIsDesc],
   (users, page, pageSize, filter, headers) => {
     const leftUserIndex = (page - 1) * pageSize
     const rightUserIndex = page * pageSize - 1

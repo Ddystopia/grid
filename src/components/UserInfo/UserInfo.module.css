@@ -1,0 +1,19 @@
+.userInfo {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+.userInfo > div {
+  display: flex;
+  align-items: center;
+  padding: 7px 0 5px 0;
+  border-bottom: 1px solid black;
+}
+.userInfo > div > textarea {
+  width: 400px;
+}
+.userInfo > div > textarea,
+.userInfo > div > b {
+  margin: 0 5px;
+}

@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from './Table.module.css'
 import { UserRow } from './UserRow/UserRow'
 import { userSchema, setSortBy, toggleSortIsDesc, setSelectedId } from '../../../redux/tableReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getSortIsDesc,
   getSortBy,
-  getTableHeaders,
+  getTableSelectDatas,
   getHasError,
   getIsFetching,
 } from '../../../redux/selectors'
@@ -17,34 +18,32 @@ export const Table = ({ users }) => {
   const sortBy = useSelector(getSortBy)
   const hasError = useSelector(getHasError)
   const isFetching = useSelector(getIsFetching)
-  const headers = useSelector(getTableHeaders)
+  const headers = useSelector(getTableSelectDatas)
 
-  const handleHeaderClick = header => {
+  const handleSelectDataClick = header => {
     dispatch(setSortBy(header))
     dispatch(toggleSortIsDesc())
   }
 
   const handleRowFocus = userId => dispatch(setSelectedId(userId))
-  if (hasError) return <h1>Ooops... Something went wrong....</h1>
-  if (isFetching) return <Preloader />
   return (
-    <table>
-      <thead>
+    <table className={classNames.table}>
+      <tbody>
         <tr>
           {headers.map(h => (
-            <th key={h} onClick={() => handleHeaderClick(h)}>
+            <th key={h} onClick={() => handleSelectDataClick(h)} tabIndex={0}>
               {h}
-              <span className={sortIsDesc && sortBy === h ? '' : ''}>▼</span>{' '}
+              <span className={sortIsDesc && sortBy === h ? classNames.active : ''}>▼</span>{' '}
             </th>
           ))}
         </tr>
-      </thead>
-      <tbody>
-        {!users.length && (
-          <tr>
-            <th>Empty</th>
-          </tr>
-        )}
+        {/* prettier-ignore */}
+        <tr hidden={!hasError && !isFetching && users.length}>
+          {hasError && <th>Ooops... Something went wrong....</th>}
+          {isFetching && <th><Preloader /></th>}
+          {!users.length && <th>Empty</th>}
+        </tr>
+
         {users.map(user => (
           <UserRow user={user} key={user.id} onFocus={() => handleRowFocus(user.id)} />
         ))}

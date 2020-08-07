@@ -1,0 +1,21 @@
+.table {
+  width: 750px;
+}
+.table th {
+  user-select: none;
+}
+.table tr {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 4fr 3fr;
+  gap: 1px;
+  padding: 1px;
+  border-bottom: 1px solid black;
+}
+.table td{
+	overflow-x: auto;
+}
+
+.active {
+  display: inline-block;
+  transform: rotate(180deg);
+}

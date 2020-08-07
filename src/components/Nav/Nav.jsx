@@ -10,11 +10,17 @@ export const Nav = () => {
   return (
     <nav className={classNames.nav}>
       <label className={classNames.label}>
-        Filter:{' '}
+        <span>Filter:</span>
         <input type="text" value={filterQuery} onChange={e => setFilterQuery(e.target.value)} />
       </label>
-      <button className={classNames.searchButton} onClick={() => setFilterString(filterQuery)}>
-        Search
+      <button
+        className={classNames.searchButton}
+        aria-label="search"
+        onClick={() => setFilterString(filterQuery)}
+      >
+        <span role="img" aria-label="search">
+          🔍︎
+        </span>
       </button>
     </nav>
   )

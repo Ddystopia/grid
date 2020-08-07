@@ -1,15 +1,15 @@
 import React from 'react'
-import { Header } from './components/Header/Header'
 import { Nav } from './components/Nav/Nav'
 import './App.css'
 import { Main } from './components/Main/Main'
+import { UserInfo } from './components/UserInfo/UserInfo'
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <Nav />
       <Main />
+      <UserInfo />
     </div>
   )
 }

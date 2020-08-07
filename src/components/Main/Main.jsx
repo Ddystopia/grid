@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from './Main.module.css'
+import { SelectData } from './SelectData/SelectData'
 import { Form } from './Form/Form'
 import { Table } from './Table/Table'
 import { Pagination } from './Pagination/Pagination'
-import { UserInfo } from './UserInfo/UserInfo'
 import { connect } from 'react-redux'
 import { getUsers, addUser, setPage, userSchema } from '../../redux/tableReducer'
 import {
@@ -32,8 +32,9 @@ const MainComponent = ({
   const changePage = page => setPage(page)
   return (
     <main className={classNames.main}>
-      <section>
+      <section className={classNames.navigate}>
         <Form addUser={addUser} />
+        <SelectData />
       </section>
       <section className={classNames.tableSection}>
         <Table users={users} />
@@ -44,7 +45,6 @@ const MainComponent = ({
           changePage={changePage}
         />
       </section>
-      <UserInfo />
     </main>
   )
 }
