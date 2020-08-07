@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { userSchema } from '../../../../redux/tableReducer'
 
-export const UserRow = ({ user, onClick }) => {
+export const UserRow = ({ user, onFocus }) => {
   return (
-    <tr onClick={onClick}>
+    <tr onFocus={onFocus} tabIndex={0}>
       <td>{user.id}</td>
       <td>{user.firstName}</td>
       <td>{user.lastName}</td>
@@ -14,20 +15,6 @@ export const UserRow = ({ user, onClick }) => {
 }
 
 UserRow.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    address: {
-      streetAddress: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      state: PropTypes.string.isRequired,
-      zip: PropTypes.string.isRequired,
-    },
-    description: PropTypes.string.isRequired,
-  }),
-
-  onClick: PropTypes.func,
+  user: userSchema,
+  onFocus: PropTypes.func,
 }

@@ -9,7 +9,7 @@ export const Pagination = ({ itemsCount, pageSize, page, changePage }) => {
   const handleChangePage = ({ selected }) => {
     changePage(selected + 1)
   }
-
+  if (pagesCount < 1) return null
   return (
     <ReactPaginate
       previousLabel={'prev'}
@@ -30,7 +30,7 @@ export const Pagination = ({ itemsCount, pageSize, page, changePage }) => {
 }
 
 Pagination.propTypes = {
-  itemsCount: PropTypes.number.isRequire,
+  itemsCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number,
   page: PropTypes.number,
   changePage: PropTypes.func,

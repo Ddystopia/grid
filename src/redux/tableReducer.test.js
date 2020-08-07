@@ -9,6 +9,10 @@ import {
   setItemsCount,
   toggleIsFetching,
   setError,
+  setSelectedId,
+  setFilter,
+  setIsLarge,
+  toggleSortIsDesc,
 } from './tableReducer'
 import { inversions } from '../utils/inversions'
 
@@ -22,24 +26,21 @@ const state = {
   isFetching: false,
   hasError: false,
 }
-/* has error test */
 test('hasError should be true', () => {
   const action = setError()
   const newState = tableReducer(state, action)
   expect(newState.hasError).toBe(true)
 })
-/* Toggle is fetching tests*/
-test('is fetching should be true', () => {
+test('isFetching should be true', () => {
   const action = toggleIsFetching(true)
   const newState = tableReducer(state, action)
   expect(newState.isFetching).toBe(true)
 })
-test('is fetching should be false', () => {
+test('isFetching should be false', () => {
   const action = toggleIsFetching(false)
   const newState = tableReducer(state, action)
   expect(newState.isFetching).toBe(false)
 })
-/* pagination tests */
 test('page should sets correctly', () => {
   const action = setPage(5)
   const newState = tableReducer(state, action)
@@ -55,7 +56,6 @@ test('itemsCount should sets correctly', () => {
   const newState = tableReducer(state, action)
   expect(newState.itemsCount).toBe(5)
 })
-/* users data tests */
 test('users should sets correctly', () => {
   const action = setUsers([{}, {}, {}])
   const newState = tableReducer(state, action)
@@ -71,16 +71,31 @@ test('sortBy should sets correctly', () => {
   const newState = tableReducer(state, action)
   expect(newState.sortBy).toBe('email')
 })
-test('sortIsDesc should adds correctly', () => {
+test('selectedId should sets correctly', () => {
+  const action = setSelectedId(222)
+  const newState = tableReducer(state, action)
+  expect(newState.selectedId).toBe(222)
+})
+test('filter should sets correctly', () => {
+  const action = setFilter('filter')
+  const newState = tableReducer(state, action)
+  expect(newState.filterString).toBe('filter')
+})
+test('isLarge should sets correctly', () => {
+  const action = setIsLarge(true)
+  const newState = tableReducer(state, action)
+  expect(newState.isLarge).toBe(true)
+})
+test('sortIsDesc should toggle correctly', () => {
+  const action = toggleSortIsDesc()
+  const newState = tableReducer(state, action)
+  expect(newState.sortIsDesc).toBe(true)
+})
+test('sortIsDesc should sets correctly', () => {
   const action = setSortIsDesc(true)
   const newState = tableReducer(state, action)
   expect(newState.sortIsDesc).toBe(true)
 })
-/* inversions tests */
-test('check inversions with asc numbers', () => expect(inversions([0, 1, 2, 3])).toBe(0))
-test('check inversions with desc numbers', () => expect(inversions([3, 2, 1, 0])).toBe(6))
-test('check inversions with asc strings', () => expect(inversions(['a', 'b', 'c', 'd'])).toBe(0))
-test('check inversions with desc strings', () => expect(inversions(['d', 'c', 'b', 'a'])).toBe(6))
 /* sort tests */
 test('sort asc by id', () => {
   const state = {
@@ -117,12 +132,12 @@ test('sort asc by email', () => {
 })
 test('sort desc by email', () => {
   const state = {
-    users: [{ email: 'bb@aa.d' }, { email: 'aa@aa.d' }, { email: 'cc@aa.d' }, { email: 'aa@aa.d' }],
+    users: [{ email: 'bb@aa.d' }, { email: 'aa@aa.d' }, { email: 'cc@aa.d' }],
     sortBy: 'email',
     sortIsDesc: false,
   }
   const action = setSortIsDesc(true)
   const newState = tableReducer(state, action)
   const usersInversions = inversions(newState.users.map(u => u.email))
-  expect(usersInversions).toBe(6)
+  expect(usersInversions).toBe(3)
 })

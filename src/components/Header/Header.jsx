@@ -1,15 +1,15 @@
 import React from 'react'
 import { Button } from './Button/Button'
 import classNames from './Header.module.css'
+import { useDispatch } from 'react-redux'
+import { setIsLarge } from '../../redux/tableReducer'
 
 export const Header = () => {
+  const dispatch = useDispatch()
   return (
-    <header>
-      <div className={classNames.loadBlock}>
-        <Button text="Load Big" />
-        <Button text="Load Few" />
-      </div>
-      <Button text="Add row" />
+    <header className={classNames.loadBlock}>
+      <Button text="Load Large" onClick={() => dispatch(setIsLarge(true))} />
+      <Button text="Load Few" onClick={() => dispatch(setIsLarge(false))} />
     </header>
   )
 }

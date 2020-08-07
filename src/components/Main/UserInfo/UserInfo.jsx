@@ -1,8 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { getSelectedUser } from '../../../redux/selectors'
+import { useSelector } from 'react-redux'
 
-export const UserInfo = ({ selectedId }) => {
-  const { id, firstName, lastName, address, description } = { id: selectedId }
+export const UserInfo = () => {
+  const user = useSelector(getSelectedUser)
+  if (!user) return null
+  const { id, firstName, lastName, address, description } = user
   return (
     <section>
       <p>
@@ -13,24 +16,20 @@ export const UserInfo = ({ selectedId }) => {
       </p>
       <p>
         Description:
-        <textarea>{description}</textarea>
+        <textarea value={description || '-'} />
       </p>
       <p>
-        Residence address: <b>{address.streetAddress}</b>
+        Residence address: <b>{address.streetAddress || '-'}</b>
       </p>
       <p>
-        City: <b>{address.city}</b>
+        City: <b>{address.city || '-'}</b>
       </p>
       <p>
-        Province / State: <b>{address.state}</b>
+        Province / State: <b>{address.state || '-'}</b>
       </p>
       <p>
-        Index: <b>{address.zip}</b>
+        Index: <b>{address.zip || '-'}</b>
       </p>
     </section>
   )
-}
-
-UserInfo.propTypes = {
-  selectedId: PropTypes.number.isRequired,
 }
