@@ -124,6 +124,7 @@ export const getUsers = isLarge => async dispatch => {
       availableIds.includes(u.id) ? false : availableIds.push(u.id)
     )
     dispatch(setUsers(users))
+    dispatch(setPage(1))
     dispatch(setItemsCount(users.length))
   } catch (e) {
     dispatch(setError())
